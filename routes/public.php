@@ -11,10 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//use \App\Post;
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/', [
+			'uses' => 'PostController@index',
+			'as' => 'posts.index'
+		]);
+
+
+Route::get('/posts/{post}-{slug}', [
+		'as' => 'posts.show',
+		'uses' => 'PostController@show'
+	])->where('post','\d+');//[0-9]+

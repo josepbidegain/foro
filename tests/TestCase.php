@@ -1,5 +1,8 @@
 <?php
 
+use \App\User;
+use \App\Post;
+
 abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
     /**
@@ -8,6 +11,8 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
      * @var string
      */
     protected $baseUrl = 'http://localhost';
+
+    protected $defaultUser;
 
     /**
      * Creates the application.
@@ -22,4 +27,20 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         return $app;
     }
+
+    public function defaultUser(){
+        
+        if ($this->defaultUser){
+            return $this->defaultUser;
+        }
+
+        return $this->defaultUser = factory(User::class)->create();
+    }
+
+    public function createPost(array $attributes = []){
+
+        return factory(\App\Post::class)->create($attributes);
+
+    }
+    
 }
