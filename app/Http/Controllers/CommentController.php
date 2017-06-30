@@ -9,6 +9,7 @@ use App\Comment;
 
 class CommentController extends Controller
 {
+
     public function store( Request $request, Post $post){
 
     	//@todo: validate request
@@ -17,5 +18,14 @@ class CommentController extends Controller
 
     	return redirect($post->url);
 
+    }
+
+    public function accept(Comment $comment){
+
+        $this->authorize('accept', $comment);
+
+    	$comment->markAsAnswer();
+
+    	return redirect($comment->post->url);
     }
 }

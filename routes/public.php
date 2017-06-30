@@ -11,11 +11,10 @@
 |
 */
 
-//use \App\Post;
+use App\Post;
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
 
 Route::get('/', [
 			'uses' => 'PostController@index',

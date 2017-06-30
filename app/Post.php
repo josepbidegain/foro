@@ -16,12 +16,17 @@ class Post extends Model
 
     public function user(){
 
-    	return $this->belongsTo(\App\user::class);
+    	return $this->belongsTo(User::class);
     }
 
     public function comments(){
 
-    	return $this->hasMany(\App\Comment::class);
+    	return $this->hasMany(Comment::class);
+    }
+
+    public function latestComments(){
+
+        return $this->comments()->orderBy('created_at','DESC');
     }
 
     public function setTitleAttribute($value){
@@ -32,7 +37,7 @@ class Post extends Model
     }
 
     public function getUrlAttribute(){
-
+        
     	return route('posts.show', [$this->id,$this->slug]);
     }
 }
